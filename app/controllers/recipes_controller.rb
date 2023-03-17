@@ -9,14 +9,15 @@ class RecipesController < ApplicationController
     end
 
     def create 
-        recipe = Recipe.create!(recipe_params)
+        recipe = @current_user.recipes.create!(recipe_params)
+        render json: recipe, status: :created
     end
 
 
     private
 
     def recipe_params 
-        params.permit(:title, :instructions, :minutes_to_complete)
+        params.permit(:title, :instructions, :minutes_to_complete, :user)
     end
-    
+
 end
